@@ -26,11 +26,11 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: Docker Build
-        run:  docker build -t spring-cicd .
+        run:  docker build -t version-cicd .
       - name: Docker change Tag
-        run : docker tag spring-cicd ${{ secrets.DOCKER_HUB_USERNAME }}/spring-cicd:${GITHUB_SHA::7}
+        run : docker tag version-cicd ${{ secrets.DOCKER_HUB_USERNAME }}/version-cicd:${GITHUB_SHA::7}
       - name: Docker Push
-        run : docker push ${{ secrets.DOCKER_HUB_USERNAME }}/spring-cicd:${GITHUB_SHA::7}
+        run : docker push ${{ secrets.DOCKER_HUB_USERNAME }}/version-cicd:${GITHUB_SHA::7}
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
@@ -39,8 +39,8 @@ jobs:
           key: ${{ secrets.KEY }}
           envs: GITHUB_SHA
           script: |
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/spring-cicd:${GITHUB_SHA::7}
-            docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/spring-cicd:${GITHUB_SHA::7} spring-cicd
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/version-cicd:${GITHUB_SHA::7}
+            docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/version-cicd:${GITHUB_SHA::7} version-cicd
             docker stop server
             docker rm -f server
-            docker run -d --name server -p 8080:8080 spring-cicd
+            docker run -d --name server -p 8080:8080 version-cicd
