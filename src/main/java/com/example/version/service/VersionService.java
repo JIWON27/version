@@ -5,6 +5,7 @@ import com.example.version.repository.VersionRepository;
 import com.example.version.web.dto.AddVersionRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,7 +27,13 @@ public class VersionService {
     return versionRepository.findAll();
   }
   // U
-
+//  @Transactional
+//  public Version update(Long idx, UpdateArticleRequestDto requestDto) {
+//    Version version = versionRepository.findById(idx)
+//        .orElseThrow(() -> new IllegalArgumentException("Version not exist! : " + idx));
+//    version.update(requestDto.getVersion(), requestDto.getMessage());
+//    return version;
+//  }
   // D
   public void delete(Long idx){
     versionRepository.deleteById(idx);

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin //디폴트값으로 다 됨
 @RequiredArgsConstructor
 @RestController
 public class TestController {
