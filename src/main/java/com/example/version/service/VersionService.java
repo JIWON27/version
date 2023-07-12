@@ -6,6 +6,8 @@ import com.example.version.web.dto.AddVersionRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class VersionService {
@@ -20,7 +22,9 @@ public class VersionService {
         .orElseThrow( () -> new IllegalArgumentException("Service not Exist! " + idx));
   }
   // R - 전체 조회
-
+  public List<Version> findAll(){
+    return versionRepository.findAll();
+  }
   // U
 
   // D

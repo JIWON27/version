@@ -44,7 +44,7 @@ public class Version {
   // regedate
 
   @CreatedDate
-  @Column(name = "created_at")
+  @Column(name = "regdate_at")
   private LocalDateTime regdate;//생성 시간
 
   @Builder
