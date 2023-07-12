@@ -44,4 +44,12 @@ public class TestController {
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(versionService.save(requestDto));
   }
+
+  @DeleteMapping("/api/latest/versions/{idx}")
+  public ResponseEntity<Void> deleteVersion(@PathVariable Long idx){
+    // 원래는 <id>를 적는걸 추천하는데 void형식도 있다는 것을 알려주기 위해서 사용
+    versionService.delete(idx);
+    return ResponseEntity.ok().build();
+  }
+
 }

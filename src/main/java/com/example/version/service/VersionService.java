@@ -28,4 +28,7 @@ public class VersionService {
   // U
 
   // D
+  public void delete(Long idx){
+    versionRepository.deleteById(idx);
+  }
 }
