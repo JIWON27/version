@@ -3,6 +3,7 @@ package com.example.version.service;
 import com.example.version.domain.Version;
 import com.example.version.repository.VersionRepository;
 import com.example.version.web.dto.AddVersionRequestDto;
+import com.example.version.web.dto.UpdateVersionRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,13 +28,15 @@ public class VersionService {
     return versionRepository.findAll();
   }
   // U
-//  @Transactional
-//  public Version update(Long idx, UpdateArticleRequestDto requestDto) {
-//    Version version = versionRepository.findById(idx)
-//        .orElseThrow(() -> new IllegalArgumentException("Version not exist! : " + idx));
-//    version.update(requestDto.getVersion(), requestDto.getMessage());
-//    return version;
-//  }
+  @Transactional
+  public Version update(Long idx, UpdateVersionRequestDto requestDto) {
+    // step 1 . 기존 등록된 글 가져오기
+    Version version = versionRepository.findById(idx)
+        .orElseThrow(() -> new IllegalArgumentException("Version not exist! : " + idx));
+
+    version.update(requestDto.getVersion(), requestDto.getMessage(), requestDto.getUpdate_type());
+    return version;
+  }
   // D
   public void delete(Long idx){
     versionRepository.deleteById(idx);

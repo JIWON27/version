@@ -4,6 +4,7 @@ import com.example.version.domain.Version;
 import com.example.version.repository.VersionRepository;
 import com.example.version.service.VersionService;
 import com.example.version.web.dto.AddVersionRequestDto;
+import com.example.version.web.dto.UpdateVersionRequestDto;
 import com.example.version.web.dto.VersionResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,12 +19,6 @@ import java.util.stream.Collectors;
 @RestController
 public class TestController {
   private final VersionService versionService;
-
-  @RequestMapping("/api/test")
-  public String test() {
-
-    return "Hello World";
-  }
 
   @GetMapping("api/latest/versions/{idx}")
   public ResponseEntity<VersionResponseDto> findVersion(@PathVariable Long idx) {
@@ -46,6 +41,15 @@ public class TestController {
         .body(versionService.save(requestDto));
   }
 
+  @PutMapping("/api/latest/versions/{idx}")
+  public ResponseEntity<Version> updateVersion(@PathVariable Long idx,
+                                               @RequestBody UpdateVersionRequestDto requestDto){
+    Version updatedVersion = versionService.update(idx, requestDto);
+
+    return ResponseEntity.ok().body(updatedVersion);
+  }
+
+  //DB에서 완전히 삭제
   @DeleteMapping("/api/latest/versions/{idx}")
   public ResponseEntity<Void> deleteVersion(@PathVariable Long idx){
     // 원래는 <id>를 적는걸 추천하는데 void형식도 있다는 것을 알려주기 위해서 사용

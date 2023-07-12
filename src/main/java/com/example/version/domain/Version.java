@@ -41,8 +41,10 @@ public class Version {
   @Column(name = "package_name")
   private String package_name;
 
-  // regedate
+  @Column(name = "Flag")
+  private String flag;
 
+  // regedate
   @CreatedDate
   @Column(name = "regdate_at")
   private LocalDateTime regdate;//생성 시간
@@ -59,7 +61,9 @@ public class Version {
     this.package_name = package_name;
   }
 
-
-
-
+  public void update(Float version, String message, Boolean update_type){
+    this.version = version;
+    this.message = message;
+    this.update_type = update_type;
+  }
 }
