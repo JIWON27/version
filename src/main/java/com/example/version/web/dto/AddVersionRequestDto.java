@@ -14,7 +14,6 @@ public class AddVersionRequestDto {
    private String os;
    private boolean update_type;
    private String message;
-   private String package_name;
 
   public Version toEntity() {
     return Version.builder()
@@ -23,7 +22,6 @@ public class AddVersionRequestDto {
         .os(os)
         .update_type(update_type)
         .message(message)
-        .package_name(package_name)
         .build();
   }
 }
