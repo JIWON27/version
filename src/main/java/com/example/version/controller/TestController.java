@@ -58,7 +58,6 @@ public class TestController {
     return ResponseEntity.ok().body(updatedVersion);
   }
 
-  //프론트에서 삭제 버튼 클릭시 Y값을 받을 수 있나?
   @DeleteMapping("/api/latest/versions/{idx}")
   public ResponseEntity<Version> deleteVersion(@PathVariable Long idx){
     Version version = versionService.delete(idx);

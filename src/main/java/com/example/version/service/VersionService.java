@@ -41,7 +41,6 @@ public class VersionService {
   }
   // D
   @Transactional
-
   public Version delete(Long idx){
     Version version = versionRepository.findById(idx)
         .orElseThrow(() -> new IllegalArgumentException("Version not exist! : " + idx));
