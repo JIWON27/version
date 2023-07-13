@@ -51,17 +51,6 @@ public class TestController {
   // 특정 서비스명에 대한 버전 화면
   @GetMapping("/api/latest/versions/services/{service}")
   public ResponseEntity<?> findByServiceVersions(@PathVariable String service) {
-    if (!service.equals("")) {
-      List<VersionResponseDto> versions = versionService.findAll()
-          .stream()
-          .filter(version -> version.getFlag().equals("N"))
-          .map(VersionResponseDto::new)
-          .collect(Collectors.toList());
-      if (versions.isEmpty()){
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("조회할 버전이 없습니다.");
-      }
-      return ResponseEntity.ok().body(versions);
-    }
     List<VersionResponseDto> versions = versionService.findAll()
         .stream()
         .filter(version -> version.getFlag().equals("N"))
