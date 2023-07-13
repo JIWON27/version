@@ -31,7 +31,7 @@ public class TestController {
       return ResponseEntity.ok()
           .body(new VersionResponseDto(versionService.findById(idx)));
     }
-    return ResponseEntity.ok().body("이미 삭제된 버전입니다.");
+    return ResponseEntity.ok().body("해당 버전은 이미 삭제된 버전입니다.");
   }
 
   // 디폴트 화면.
