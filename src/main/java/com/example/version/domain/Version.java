@@ -40,7 +40,7 @@ public class Version {
   @Column(name = "message")
   private String message;
 
-  @Column(name = "package_name", nullable = false)
+  @ColumnDefault("'com.test.package'")
   private String package_name;
 
   //@Column(name = "flag" )
@@ -54,14 +54,13 @@ public class Version {
 
   @Builder
   public Version(String service_name, Float version, String os, Boolean update_type,
-                 String message, String package_name) {
+                 String message) {
     // Id는 AutoIncrease이고 시각도 어노테이션 자동 생성 줫으니 안받음
     this.service_name = service_name;
     this.version = version;
     this.os = os;
     this.update_type = update_type;
     this.message = message;
-    this.package_name = package_name;
   }
 
   public void update(String service_name, String os, Float version, String message){

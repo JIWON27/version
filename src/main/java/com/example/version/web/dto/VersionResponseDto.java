@@ -14,7 +14,6 @@ public class VersionResponseDto {
   private String os;
   private boolean update_type;
   private String message;
-  private String package_name;
   private LocalDateTime regdate;
 
   public VersionResponseDto(Version version) {
@@ -24,7 +23,6 @@ public class VersionResponseDto {
     this.os = version.getOs();
     this.update_type = version.getUpdate_type();
     this.message = version.getMessage();
-    this.package_name = version.getPackage_name();
     this.regdate = version.getRegdate();
   }
 }
