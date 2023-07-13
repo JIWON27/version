@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class UpdateVersionRequestDto {
 
+  private String service_name;
+  private String os;
   private Float version;
   private String message;
-  private Boolean update_type;
 
 }

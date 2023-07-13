@@ -64,10 +64,11 @@ public class Version {
     this.package_name = package_name;
   }
 
-  public void update(Float version, String message, Boolean update_type){
+  public void update(String service_name, String os, Float version, String message){
+    this.service_name = service_name;
+    this.os = os;
     this.version = version;
     this.message = message;
-    this.update_type = update_type;
   }
 
   public void setFlag(String flag){
