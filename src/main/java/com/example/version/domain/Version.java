@@ -4,13 +4,15 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
+@DynamicInsert
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class) // 시간 자동으로 수정해주는거 같음... 찾아보기
@@ -26,22 +28,23 @@ public class Version {
   @Column(name="service_name", nullable = false)
   private String service_name;
 
-  @Column(name = "version")
+  @Column(name = "version", nullable = false)
   private Float version;
 
-  @Column(name = "os")
+  @Column(name = "os", nullable = false)
   private String os;
 
-  @Column(name = "update_type")
+  @Column(name = "update_type", nullable = false)
   private Boolean update_type;
 
   @Column(name = "message")
   private String message;
 
-  @Column(name = "package_name")
+  @Column(name = "package_name", nullable = false)
   private String package_name;
 
-  @Column(name = "Flag")
+  //@Column(name = "flag" )
+  @ColumnDefault("'N'")
   private String flag;
 
   // regedate
@@ -65,5 +68,12 @@ public class Version {
     this.version = version;
     this.message = message;
     this.update_type = update_type;
+  }
+
+  public void setFlag(String flag){
+    this.flag = flag;
+  }
+  public String getFlag(){
+    return flag;
   }
 }

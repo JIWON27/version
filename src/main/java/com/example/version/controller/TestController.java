@@ -1,7 +1,6 @@
 package com.example.version.controller;
 
 import com.example.version.domain.Version;
-import com.example.version.repository.VersionRepository;
 import com.example.version.service.VersionService;
 import com.example.version.web.dto.AddVersionRequestDto;
 import com.example.version.web.dto.UpdateVersionRequestDto;
@@ -20,18 +19,28 @@ import java.util.stream.Collectors;
 public class TestController {
   private final VersionService versionService;
 
+  // Test가 약간 단건조회 느낌
   @GetMapping("api/latest/versions/{idx}")
-  public ResponseEntity<VersionResponseDto> findVersion(@PathVariable Long idx) {
-    return ResponseEntity.ok()
-        .body(new VersionResponseDto(versionService.findById(idx)));
+  public ResponseEntity<?> findVersion(@PathVariable Long idx) {
+    Version version = versionService.findById(idx);
+    if (version.getFlag() == "N") {
+      return ResponseEntity.ok()
+          .body(new VersionResponseDto(versionService.findById(idx)));
+    }
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이미 삭제된 버전입니다.");
   }
+
+  // 기본 화면에 출력할때 사용하는거 같음.
   @GetMapping("/api/latest/versions")
-  public ResponseEntity<List<VersionResponseDto>> findAllVersions() {
+  public ResponseEntity<?> findAllVersions() {
     List<VersionResponseDto> versions = versionService.findAll()
         .stream()
+        .filter(version -> version.getFlag().equals("N"))
         .map(VersionResponseDto::new)
         .collect(Collectors.toList());
-
+    if (versions.isEmpty()){
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("조회할 버전이 없습니다.");
+    }
     return ResponseEntity.ok().body(versions);
   }
   @PostMapping("/api/latest/versions")
@@ -49,12 +58,11 @@ public class TestController {
     return ResponseEntity.ok().body(updatedVersion);
   }
 
-  //DB에서 완전히 삭제
+  //프론트에서 삭제 버튼 클릭시 Y값을 받을 수 있나?
   @DeleteMapping("/api/latest/versions/{idx}")
-  public ResponseEntity<Void> deleteVersion(@PathVariable Long idx){
-    // 원래는 <id>를 적는걸 추천하는데 void형식도 있다는 것을 알려주기 위해서 사용
-    versionService.delete(idx);
-    return ResponseEntity.ok().build();
+  public ResponseEntity<Version> deleteVersion(@PathVariable Long idx){
+    Version version = versionService.delete(idx);
+    return ResponseEntity.ok().body(version);
   }
 
 }

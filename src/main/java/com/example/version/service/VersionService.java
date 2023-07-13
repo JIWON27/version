@@ -16,15 +16,17 @@ public class VersionService {
   private final VersionRepository versionRepository;
   // C
   public Version save(AddVersionRequestDto requestDto){
+
     return versionRepository.save(requestDto.toEntity());
   }
   // R - 단건 조회
   public Version findById(Long idx){
     return versionRepository.findById(idx)
-        .orElseThrow( () -> new IllegalArgumentException("Service not Exist! " + idx));
+        .orElseThrow( () -> new IllegalArgumentException("Version not Exist! " + idx));
   }
   // R - 전체 조회
   public List<Version> findAll(){
+
     return versionRepository.findAll();
   }
   // U
@@ -38,7 +40,13 @@ public class VersionService {
     return version;
   }
   // D
-  public void delete(Long idx){
-    versionRepository.deleteById(idx);
+  @Transactional
+
+  public Version delete(Long idx){
+    Version version = versionRepository.findById(idx)
+        .orElseThrow(() -> new IllegalArgumentException("Version not exist! : " + idx));
+
+    version.setFlag("Y");
+    return version;
   }
 }
