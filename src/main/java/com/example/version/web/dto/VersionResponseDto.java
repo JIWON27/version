@@ -10,7 +10,7 @@ public class VersionResponseDto {
 
   private Long idx;
   private String service_name;
-  private Float version;
+  private String version;
   private String os;
   private boolean update_type;
   private String message;

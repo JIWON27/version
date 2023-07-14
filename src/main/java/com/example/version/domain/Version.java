@@ -29,7 +29,7 @@ public class Version {
   private String service_name;
 
   @Column(name = "version", nullable = false)
-  private Float version;
+  private String version;
 
   @Column(name = "os", nullable = false)
   private String os;
@@ -53,7 +53,7 @@ public class Version {
   private LocalDateTime regdate;//생성 시간
 
   @Builder
-  public Version(String service_name, Float version, String os, Boolean update_type,
+  public Version(String service_name, String version, String os, Boolean update_type,
                  String message) {
     // Id는 AutoIncrease이고 시각도 어노테이션 자동 생성 줫으니 안받음
     this.service_name = service_name;
@@ -63,7 +63,7 @@ public class Version {
     this.message = message;
   }
 
-  public void update(String service_name, String os, Float version, String message){
+  public void update(String service_name, String os, String version, String message){
     this.service_name = service_name;
     this.os = os;
     this.version = version;

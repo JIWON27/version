@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class AddVersionRequestDto {
    private String service_name;
-   private Float version;
+   private String version;
    private String os;
    private boolean update_type;
    private String message;

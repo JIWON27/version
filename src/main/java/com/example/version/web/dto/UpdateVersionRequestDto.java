@@ -11,7 +11,7 @@ public class UpdateVersionRequestDto {
 
   private String service_name;
   private String os;
-  private Float version;
+  private String version;
   private String message;
 
 }
