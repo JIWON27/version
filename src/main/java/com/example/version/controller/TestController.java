@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class TestController {
   private final VersionService versionService;
 
-  // Test가 약간 단건조회 느낌
+  // Test가 약간 단건조회 느낌임.
   @GetMapping("/api/latest/versions/{idx}")
   public ResponseEntity<?> findVersion(@PathVariable Long idx) {
     Version version = versionService.findById(idx);
