@@ -94,7 +94,7 @@ public class TestController {
         .map(VersionResponseDto::new)
         .collect(Collectors.toList());
     if (versions.isEmpty()){
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("조회할 버전이 없습니다.");
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("조회할 버전이 없습니다. !");
     }
     return ResponseEntity.ok().body(new PageImpl<>(versions));
   }
